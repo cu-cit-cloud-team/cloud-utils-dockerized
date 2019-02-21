@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [[ -z "${ECP_ENDPOINT}" ]] || [[ -z "${NETID}" ]]
+then
+  echo "Environment variables not set, aborting awscli-login config setup"
+  exit 128
+fi
+
+config_array=( "[default]" "ecp_endpoint_url = ${ECP_ENDPOINT}" "username = ${NETID}" "factor = push" )
+
+aws configure set plugins.login awscli_login
+
+if [ ! -e ~/.aws-login/config ]
+then
+  printf "%s\n" "${config_array[@]}" > ~/.aws-login/config
+  echo "Default awscli-login config written successfully"
+else
+  echo "Skipping setup, awscli-login config found"
+fi

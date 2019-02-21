@@ -1,0 +1,23 @@
+version: "3"
+services:
+  aws-utils:
+    image: ms388/awscli-utils:latest
+    container_name: awscli-utils
+    environment:
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_PROFILE=default
+      - ECP_ENDPOINT="https://shibidp.cit.cornell.edu/idp/profile/SAML2/SOAP/ECP"
+      - NETID=ms388
+    networks:
+      - default
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./:/mounted-home
+      - ${HOME}/.aws:/root/.aws
+      - ${HOME}/.aws-login:/root/.aws-login
+    working_dir: "/mounted-home"
+    command: bash -c "aws configure set plugins.login awscli_login && setup-awscli-login"
+networks:
+  default:
+    driver: "bridge"
