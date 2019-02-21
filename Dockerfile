@@ -7,7 +7,7 @@ RUN apt-get clean && apt-get update && apt-get -qy upgrade \
     && locale-gen en_US.UTF-8 \
     && ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime \
     && dpkg-reconfigure -f noninteractive tzdata \
-    && apt-get -qy install jq
+    && apt-get -qy install jq groff
 
 # install aws-cli, aws-shell, awscli-login,
 # pyyaml, troposhphere, awacs, argcomplete, boto3,
