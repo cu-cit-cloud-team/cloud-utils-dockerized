@@ -17,3 +17,13 @@ then
 else
   echo "Skipping setup, awscli-login config found"
 fi
+
+# if [ -n "${REPO_URL}" ]
+# then
+#   REPO_DIR="${REPO_URL##*/}"
+#   REPO_DIR="${REPO_DIR%.*}"
+#   if [ ! -d "${REPO_DIR}" ]; then
+#     git clone "${REPO_URL}"
+#     echo "Successfully cloned repo into /mounted-home/${REPO_DIR} folder"
+#   fi
+# fi
