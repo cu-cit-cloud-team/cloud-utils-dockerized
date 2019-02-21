@@ -49,22 +49,22 @@ This will set some environment variables and if you haven't already set up `awsc
     docker-compose up --detach
   ```
 
-- Attach to a bash shell
+- Call helper script to setup `awscli-login` and then attach to a bash shell
 
   ```bash
-  docker-compose exec awscli-utils bash
+  docker-compose exec awscli-utils bash -c "setup-awscli-login && bash"
   ```
 
 - _Note: Last 2 steps can be called together_
 
   ```bash
-    docker-compose up --detach && docker-compose exec awscli-utils bash
-  ```
-
-- Run helper script that sets up `awscli-login` config based on environment variables
-
-  ```bash
-    setup-awscli-login
+    docker-compose up --detach && docker-compose exec awscli-utils bash -c "setup-awscli-login && bash"
   ```
 
 - You should now be able to run any `aws` commands (including `aws login`) or the `aws-shell`
+
+- Stopping the container (after exiting it)
+
+  ```bash
+    docker-compose down
+  ```
