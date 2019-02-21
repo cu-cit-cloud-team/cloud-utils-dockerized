@@ -1,12 +1,12 @@
 version: "3"
 services:
-  aws-utils:
+  awscli-utils:
     image: mikesprague/awscli-utils:latest
     container_name: awscli-utils
     environment:
       - AWS_DEFAULT_REGION=us-east-1
       - AWS_PROFILE=default
-      - ECP_ENDPOINT="https://shibidp.cit.cornell.edu/idp/profile/SAML2/SOAP/ECP"
+      - ECP_ENDPOINT=https://shibidp.cit.cornell.edu/idp/profile/SAML2/SOAP/ECP
       - NETID=abc123 # change to your netid
     networks:
       - default
@@ -17,7 +17,6 @@ services:
       - ${HOME}/.aws:/root/.aws
       - ${HOME}/.aws-login:/root/.aws-login
     working_dir: "/mounted-home"
-    command: bash -c "aws configure set plugins.login awscli_login && setup-awscli-login"
 networks:
   default:
     driver: "bridge"
