@@ -10,11 +10,11 @@ RUN apt-get clean && apt-get update && apt-get -qy upgrade \
     && apt-get -qy install jq groff
 
 # install aws-cli, aws-shell, awscli-login,
-# pyyaml, troposhphere, awacs, argcomplete, boto3,
+# pyyml, pyjq, troposhphere, awacs, argcomplete, boto3,
 # botocore, jsonschema, tabulate, jsonpatch, futures
 RUN pip install --upgrade pip \
     && pip install awscli aws-shell awscli-login \
-    && pip install pyyaml troposphere awacs argcomplete boto3 botocore jsonschema tabulate jsonpatch futures
+    && pip install pyyaml pyjq troposphere awacs argcomplete boto3 botocore jsonschema tabulate jsonpatch futures
 
 COPY ["./setup-awscli-login", "/usr/local/bin/setup-awscli-login"]
 
