@@ -4,8 +4,6 @@ services:
     image: mikesprague/awscli-utils:latest
     container_name: awscli-utils
     environment:
-      - AWS_DEFAULT_REGION=us-east-1
-      - AWS_PROFILE=default
       - ECP_ENDPOINT=https://shibidp.cit.cornell.edu/idp/profile/SAML2/SOAP/ECP
       - NETID=abc123 # change to your netid
     networks:
