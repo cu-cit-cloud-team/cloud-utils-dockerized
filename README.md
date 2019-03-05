@@ -18,6 +18,7 @@ and installs the following:
 - [awscli-login](https://github.com/techservicesillinois/awscli-login)
 - [jq](https://stedolan.github.io/jq/)
 - [pyyaml](https://github.com/yaml/pyyaml)
+- [pyjq](https://github.com/doloopwhile/pyjq)
 - [troposphere](https://github.com/cloudtools/troposphere)
 - [awacs](https://github.com/cloudtools/awacs)
 - [argcomplete](https://github.com/kislyuk/argcomplete)
@@ -49,13 +50,13 @@ This will set some environment variables and if you haven't already set up `awsc
     docker-compose up --detach
   ```
 
-- Call helper script to setup `awscli-login` and then attach to a bash shell
+- Attach to a bash shell
 
   ```bash
   docker-compose exec awscli-utils bash
   ```
 
-- _Note: Last 2 steps can be called together_
+- _**Note:** Last 2 steps can be called together_
 
   ```bash
     docker-compose up --detach && docker-compose exec awscli-utils bash
@@ -68,3 +69,9 @@ This will set some environment variables and if you haven't already set up `awsc
   ```bash
     docker-compose down
   ```
+
+- Alternative command to bring up container that removes itself on exit
+
+```bash
+  docker-compose run --rm awscli-utils bash -c "setup-awscli-login && bash"
+```
