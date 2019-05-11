@@ -3,9 +3,8 @@ services:
   awscli-utils:
     image: mikesprague/awscli-utils:latest
     container_name: awscli-utils
-    environment:
-      - ECP_ENDPOINT=https://shibidp.cit.cornell.edu/idp/profile/SAML2/SOAP/ECP
-      - NETID=abc123 # change to your netid
+    env_file:
+      - setup.env
     networks:
       - default
     stdin_open: true
