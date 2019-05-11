@@ -1,19 +1,41 @@
 #!/bin/bash
 
-if [[ -z "${ECP_ENDPOINT}" ]] || [[ -z "${NETID}" ]]
+if [ "${SETUP_AWSCLI_LOGIN}" == "true" ]
 then
-  echo "Environment variables not set, aborting awscli-login config setup"
-  exit 128
+  # make sure endpoint variable is set, if not set to CIT default
+  if [[ -z "${ECP_ENDPOINT}" ]]
+  then
+    echo "ECP_EMDPOINT environment variables not set, setting to default CIT endpoint"
+    export ECP_ENDPOINT="https://shibidp.cit.cornell.edu/idp/profile/SAML2/SOAP/ECP"
+  fi
+
+  # create array of options that will be used to write aws-login config file
+  config_array=( "[default]" "ecp_endpoint_url = ${ECP_ENDPOINT}" "username = ${NETID}" "factor = ${DUO_FACTOR}" )
+
+  # configure aws cli to use awscli-login
+  aws configure set plugins.login awscli_login
+
+  # write aws-login config file if one doesn't already exist
+  if [ ! -e ~/.aws-login/config ]
+  then
+    printf "%s\n" "${config_array[@]}" > ~/.aws-login/config
+    echo "Default awscli-login config written successfully"
+  else
+    echo "Skipping setup, awscli-login config found"
+  fi
 fi
 
-config_array=( "[default]" "ecp_endpoint_url = ${ECP_ENDPOINT}" "username = ${NETID}" "factor = push" )
-
-aws configure set plugins.login awscli_login
-
-if [ ! -e ~/.aws-login/config ]
+# install fx (via node/npm)
+if [ "${SETUP_FX}" == "true" ]
 then
-  printf "%s\n" "${config_array[@]}" > ~/.aws-login/config
-  echo "Default awscli-login config written successfully"
-else
-  echo "Skipping setup, awscli-login config found"
+  curl -sL https://deb.nodesource.com/setup_11.x | bash - \
+    && apt-get install -qy nodejs \
+    && npm i -g fx
+fi
+
+# install zsh and oh-my-zsh
+if [ "${SETUP_ZSH}" == "true" ]
+then
+  chsh -s $(which zsh) \
+    && sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
