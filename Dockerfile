@@ -1,24 +1,22 @@
 FROM python:3.7
 
-# run some updates and set the timezone to eastern
-# also install jq json viewer (https://stedolan.github.io/jq/)
-RUN apt-get clean && apt-get update && apt-get -qy upgrade \
-    && apt-get -qy install locales tzdata apt-utils software-properties-common build-essential python3 \
+# run some updates;
+# install a few common packages plus jq, zsh, and vim;
+# set the timezone to eastern;
+RUN apt-get clean && apt-get update && apt-get upgrade -qy \
+    && apt-get install -qy locales tzdata apt-utils software-properties-common build-essential vim jq zsh groff \
     && locale-gen en_US.UTF-8 \
     && ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime \
-    && dpkg-reconfigure -f noninteractive tzdata \
-    && apt-get -qy install jq groff
+    && dpkg-reconfigure -f noninteractive tzdata
 
-# install aws-cli, aws-shell, awscli-login,
-# pyyml, pyjq, troposhphere, awacs, argcomplete, boto3,
-# botocore, jsonschema, tabulate, jsonpatch, futures
-RUN pip install --upgrade pip \
-    && pip install awscli aws-shell awscli-login \
-    && pip install pyyaml pyjq troposphere awacs argcomplete boto3 botocore jsonschema tabulate jsonpatch futures
+# upgrade pip;
+# install awscli, aws-shell, aws-sam-cli, awscli-login, pyjq, boto3, botocore, wheel;
+RUN pip install --upgrade pip
+RUN pip install awscli aws-shell aws-sam-cli awscli-login pyjq boto3 botocore wheel
 
 COPY ["./setup-awscli-login", "/usr/local/bin/setup-awscli-login"]
 
-# clean up after ourselves
+# clean up after ourselves;
 RUN apt-get remove -qy --purge software-properties-common \
     && apt-get autoclean -qy \
     && apt-get autoremove -qy --purge \
