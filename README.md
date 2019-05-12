@@ -115,19 +115,7 @@ This will set some environment variables and if you haven't already set up `awsc
       mikesprague/awscli-utils
   ```
 
-- If you copy the `setup.env` file to the directory you are running these commands from, you can simplify the calls:
-
-  ```bash
-    docker run --rm -it \
-      --env-file ./setup.env \
-      -v $HOME/.aws:/root/.aws \
-      -v $HOME/.aws-login:/root/.aws-login \
-      -v $PWD:/mounted-home \
-      -w /mounted-home \
-      mikesprague/awscli-utils
-  ```
-
-- You could also add the following to your bash profile (via `~/.profile` or `~/.bashrc` or your Zsh profile via `~/.zshrc`) to simplify reuse:
+- You can also alias the same command in your bash/zsh profile (bash via `~/.profile` or `~/.bashrc` or Zsh via `~/.zshrc`) to simplify reuse:
 
   ```bash
     alias awscli-utils="docker run --rm -it \
