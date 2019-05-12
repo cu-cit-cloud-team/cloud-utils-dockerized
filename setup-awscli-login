@@ -56,4 +56,5 @@ then
   zsh
 else
   echo "[INFO] skipping oh-my-zsh setup/configuration"
+  /bin/bash
 fi
