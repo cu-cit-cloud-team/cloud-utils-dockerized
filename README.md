@@ -23,12 +23,14 @@ and installs the following:
 
 ## How to Use
 
-- Pull this repository up and go into the directory
+- Pull this repository down and go into the directory
 
   ```bash
     git pull https://github.com/CU-CommunityApps/ct-awscli-utils-dockerized.git
     cd ct-awscli-utils-dockerized
   ```
+
+- _**Note:** If you have an existing folder with files you want to use this with, copy the `docker-compose.yml` and `setup-awscli-login` files to your folder and then proceed_
 
 ### Recommended usage (via docker-compose)
 
