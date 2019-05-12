@@ -1,6 +1,6 @@
 # ct-awscli-utils-dockerized
 
-Various AWS utils (AWS CLI, aws-shell, awscli-login) in one Docker container. Also installs common dependencies used for things like [account setup](https://github.com/CU-CommunityApps/aws-account-setup).
+Various AWS utils (AWS CLI, aws-shell, awscli-login) in one Docker container.
 
 ## About
 
@@ -17,16 +17,11 @@ and installs the following:
 - [aws-shell](https://github.com/awslabs/aws-shell)
 - [awscli-login](https://github.com/techservicesillinois/awscli-login)
 - [jq](https://stedolan.github.io/jq/)
-- [pyjq](https://github.com/doloopwhile/pyjq))
 - [boto3](https://github.com/boto/boto3)
 - [botocore](https://github.com/boto/botocore)
 - [wheel](https://github.com/pypa/wheel)
 
 ## How to Use
-
-### Recommended usage (via `docker-compose`)
-
-This will set some environment variables and if you haven't already set up `awscli-login` it will create a default config
 
 - Pull this repository up and go into the directory
 
@@ -35,7 +30,14 @@ This will set some environment variables and if you haven't already set up `awsc
     cd ct-awscli-utils-dockerized
   ```
 
+### Recommended usage (via docker-compose)
+
+This will set some environment variables and if you haven't already set up `awscli-login` it will create a default config
+
 - Edit the `setup.env` file to set your preferences
+  - Optionally disable `awscli-login` configuration - useful if using with a non-Cornell account where you'll connect with access keys and not use `awscli-login`
+  - Optionally enable [`oh-my-zsh`](https://github.com/robbyrussell/oh-my-zsh/) and/or [`fx`](https://github.com/antonmedv/fx/) in the `setup.env` file
+  - If enabled, container will start with a `zsh` shell versus a `bash` shell
 
 - Bring container up
 
@@ -46,16 +48,24 @@ This will set some environment variables and if you haven't already set up `awsc
 - Attach to a bash shell
 
   ```bash
-  docker-compose exec awscli-utils zsh -c "./setup-awscli-login"
+  docker-compose exec awscli-utils bash -c "./setup-awscli-login"
   ```
 
 - _**Note:** Last 2 steps can be called together_
 
   ```bash
-    docker-compose up --detach && docker-compose exec awscli-utils zsh -c "./setup-awscli-login"
+    docker-compose up --detach && docker-compose exec awscli-utils bash -c "./setup-awscli-login"
   ```
 
+- _**Note:** The container will remain running unless you manually stop it (this is useful if you want to return to a session with your prior setup, bash history, etc.)_
+
 - You should now be able to run any `aws` commands (including `aws login`) or the `aws-shell`
+
+- _**Note:** Subsequent calls to a running container can be made using this command_
+
+  ```bash
+    docker-compose run --rm awscli-utils bash
+  ```
 
 - Stopping the container (after exiting it)
 
@@ -63,8 +73,14 @@ This will set some environment variables and if you haven't already set up `awsc
     docker-compose down
   ```
 
-- Alternative command to bring up container that removes itself on exit
+- Check if you have any running containers
 
-```bash
-  docker-compose run --rm awscli-utils bash -c "./setup-awscli-login"
-```
+  ```bash
+    docker-compose ps
+  ```
+
+- Alternative command to bring up a container that removes itself on exit
+
+  ```bash
+    docker-compose run --rm awscli-utils bash -c "./setup-awscli-login"
+  ```
