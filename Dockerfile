@@ -10,9 +10,9 @@ RUN apt-get clean && apt-get update && apt-get upgrade -qy \
     && dpkg-reconfigure -f noninteractive tzdata
 
 # upgrade pip;
-# install awscli, aws-shell, aws-sam-cli, awscli-login, pyjq, boto3, botocore, wheel;
+# install awscli, aws-shell, aws-sam-cli, awscli-login, boto3, botocore, wheel;
 RUN pip install --upgrade pip
-RUN pip install awscli aws-shell aws-sam-cli awscli-login pyjq boto3 botocore wheel
+RUN pip install awscli aws-shell aws-sam-cli awscli-login boto3 botocore wheel
 
 # clean up after ourselves;
 RUN apt-get remove -qy --purge software-properties-common \
