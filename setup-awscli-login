@@ -20,7 +20,7 @@ then
 
     # write aws-login config file
     printf "%s\n" "${config_array[@]}" > ~/.aws-login/config
-    echo "[END] awscli-login configuration successful"
+    echo "[FINISH] awscli-login configuration successful"
   else
     echo "[INFO] skipping awscli-login configuration - config found"
   fi
@@ -35,7 +35,7 @@ then
   curl -sL https://deb.nodesource.com/setup_11.x | bash - &>/dev/null
   apt-get install -qy nodejs &>/dev/null
   npm i -g fx &>/dev/null
-  echo "[END] fx/nodejs/npm installation successful"
+  echo "[FINISH] fx/nodejs/npm installation successful"
 else
   echo "[INFO] skipping fx/nodejs/npm installation"
 fi
@@ -52,7 +52,7 @@ then
   sed -i 's/# HYPHEN_INSENSITIVE=/HYPHEN_INSENSITIVE=/g' ~/.zshrc >/dev/null
   sed -i 's/plugins=(git)/plugins=(git aws zsh-completions zsh-autosuggestions)/g' ~/.zshrc >/dev/null
   sed -i '/plugins=(git)/a autoload -U compinit && compinit' ~/.zshrc >/dev/null
-  echo "[END] oh-my-zsh setup/configuration successful"
+  echo "[FINISH] oh-my-zsh setup/configuration successful"
   zsh
 else
   echo "[INFO] skipping oh-my-zsh setup/configuration"
