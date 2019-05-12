@@ -1,41 +1,59 @@
 #!/bin/bash
 
-if [ "${SETUP_AWSCLI_LOGIN}" == "true" ]
+if [ "${SETUP_AWSCLI_LOGIN}" == true ]
 then
-  # make sure endpoint variable is set, if not set to CIT default
-  if [[ -z "${ECP_ENDPOINT}" ]]
-  then
-    echo "ECP_EMDPOINT environment variables not set, setting to default CIT endpoint"
-    export ECP_ENDPOINT="https://shibidp.cit.cornell.edu/idp/profile/SAML2/SOAP/ECP"
-  fi
-
-  # create array of options that will be used to write aws-login config file
-  config_array=( "[default]" "ecp_endpoint_url = ${ECP_ENDPOINT}" "username = ${NETID}" "factor = ${DUO_FACTOR}" )
-
-  # configure aws cli to use awscli-login
-  aws configure set plugins.login awscli_login
-
-  # write aws-login config file if one doesn't already exist
   if [ ! -e ~/.aws-login/config ]
   then
+    echo "[START] awscli-login configuration"
+    # make sure endpoint variable is set, if not set to CIT default
+    if [[ -z "${ECP_ENDPOINT}" ]]
+    then
+      echo "[INFO] ECP_EMDPOINT environment variables not set, setting to default CIT endpoint"
+      export ECP_ENDPOINT="https://shibidp.cit.cornell.edu/idp/profile/SAML2/SOAP/ECP"
+    fi
+
+    # create array of options that will be used to write aws-login config file
+    config_array=( "[default]" "ecp_endpoint_url = ${ECP_ENDPOINT}" "username = ${NETID}" "factor = ${DUO_FACTOR}" )
+
+    # configure aws cli to use awscli-login
+    aws configure set plugins.login awscli_login >/dev/null
+
+    # write aws-login config file
     printf "%s\n" "${config_array[@]}" > ~/.aws-login/config
-    echo "Default awscli-login config written successfully"
+    echo "[END] awscli-login configuration successful"
   else
-    echo "Skipping setup, awscli-login config found"
+    echo "[INFO] skipping awscli-login configuration - config found"
   fi
+else
+  echo "[INFO] skipping awscli-login configuration"
 fi
 
 # install fx (via node/npm)
-if [ "${SETUP_FX}" == "true" ]
+if [ "${SETUP_FX}" == true ]
 then
-  curl -sL https://deb.nodesource.com/setup_11.x | bash - \
-    && apt-get install -qy nodejs \
-    && npm i -g fx
+  echo "[START] fx/nodejs/npm installation"
+  curl -sL https://deb.nodesource.com/setup_11.x | bash - >/dev/null
+  apt-get install -qy nodejs >/dev/null
+  npm i -g fx >/dev/null
+  echo "[END] fx/nodejs/npm installation successful"
+else
+  echo "[INFO] skipping fx/nodejs/npm installation"
 fi
 
-# install zsh and oh-my-zsh
-if [ "${SETUP_ZSH}" == "true" ]
+# install oh-my-zsh, zsh-completions/zsh-autosuggestions plugins, and set shell to zsh
+if [ "${SETUP_OHMYZSH}" == true ]
 then
-  chsh -s $(which zsh) \
-    && sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  echo "[START] oh-my-zsh setup/configuration"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh -l//g' | sed 's/chsh -s .*$//g')" >/dev/null
+  chsh -s /usr/bin/zsh >/dev/null
+  git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions >/dev/null
+  git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions >/dev/null
+  sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="refined"/g' ~/.zshrc >/dev/null
+  sed -i 's/# HYPHEN_INSENSITIVE=/HYPHEN_INSENSITIVE=/g' ~/.zshrc >/dev/null
+  sed -i 's/plugins=(git)/plugins=(git aws zsh-completions zsh-autosuggestions)/g' ~/.zshrc >/dev/null
+  sed -i '/plugins=(git)/a autoload -U compinit && compinit' ~/.zshrc >/dev/null
+  echo "[END] oh-my-zsh setup/configuration successful"
+  zsh
+else
+  echo "[INFO] skipping oh-my-zsh setup/configuration"
 fi
