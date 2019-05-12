@@ -17,17 +17,10 @@ and installs the following:
 - [aws-shell](https://github.com/awslabs/aws-shell)
 - [awscli-login](https://github.com/techservicesillinois/awscli-login)
 - [jq](https://stedolan.github.io/jq/)
-- [pyyaml](https://github.com/yaml/pyyaml)
-- [pyjq](https://github.com/doloopwhile/pyjq)
-- [troposphere](https://github.com/cloudtools/troposphere)
-- [awacs](https://github.com/cloudtools/awacs)
-- [argcomplete](https://github.com/kislyuk/argcomplete)
+- [pyjq](https://github.com/doloopwhile/pyjq))
 - [boto3](https://github.com/boto/boto3)
 - [botocore](https://github.com/boto/botocore)
-- [jsonschema](https://github.com/Julian/jsonschema)
-- [tabulate](https://bitbucket.org/astanin/python-tabulate)
-- [jsonpatch](https://github.com/stefankoegl/python-json-patch)
-- [futures](https://github.com/agronholm/pythonfutures)
+- [wheel](https://github.com/pypa/wheel)
 
 ## How to Use
 
@@ -42,7 +35,7 @@ This will set some environment variables and if you haven't already set up `awsc
     cd ct-awscli-utils-dockerized
   ```
 
-- Edit the `docker-compose.yml` file on line 10 and change `abc123` placeholder to your netid
+- Edit the `setup.env` file to set your preferences
 
 - Bring container up
 
@@ -53,13 +46,13 @@ This will set some environment variables and if you haven't already set up `awsc
 - Attach to a bash shell
 
   ```bash
-  docker-compose exec awscli-utils bash
+  docker-compose exec awscli-utils zsh -c "./setup-awscli-login"
   ```
 
 - _**Note:** Last 2 steps can be called together_
 
   ```bash
-    docker-compose up --detach && docker-compose exec awscli-utils bash
+    docker-compose up --detach && docker-compose exec awscli-utils zsh -c "./setup-awscli-login"
   ```
 
 - You should now be able to run any `aws` commands (including `aws login`) or the `aws-shell`
@@ -73,5 +66,5 @@ This will set some environment variables and if you haven't already set up `awsc
 - Alternative command to bring up container that removes itself on exit
 
 ```bash
-  docker-compose run --rm awscli-utils bash -c "setup-awscli-login && bash"
+  docker-compose run --rm awscli-utils bash -c "./setup-awscli-login"
 ```
