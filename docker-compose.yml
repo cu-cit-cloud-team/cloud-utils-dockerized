@@ -14,7 +14,7 @@ services:
       - ${HOME}/.aws:/root/.aws
       - ${HOME}/.aws-login:/root/.aws-login
     working_dir: "/mounted-home"
-    command: bash -c "setup-awscli-login && bash"
+    command: [ "/bin/bash" ]
 networks:
   default:
     driver: "bridge"
