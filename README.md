@@ -24,7 +24,7 @@ and installs the following:
 - [vim](https://www.vim.org/)
 - [zsh](https://www.zsh.org/)
 
-**Optionally installed (added at runtime based on settings in `setup.env`):**
+**Optionally installed (added at runtime based on config):**
 
 - [fx](https://github.com/antonmedv/fx)
 - [nodejs](https://nodejs.org/)
@@ -40,15 +40,15 @@ and installs the following:
     cd ct-awscli-utils-dockerized
   ```
 
-- _**Note:** If you have an existing folder with files you want to use this with, copy the `docker-compose.yml` and `setup.env` files to your folder and then proceed_
+- _**Note:** If you have an existing folder with files you want to use this with, copy the `docker-compose.yml` file to your folder and then proceed_
 
 ### Recommended usage (via docker-compose)
 
 This will set some environment variables and if you haven't already set up `awscli-login` it will create a default config
 
-- Edit the `setup.env` file to set your preferences
+- Edit the `docker-compose.yml` file to set your preferences
   - Optionally disable `awscli-login` configuration - useful if using with a non-Cornell account where you'll connect with access keys and not use `awscli-login`
-  - Optionally enable [`oh-my-zsh`](https://github.com/robbyrussell/oh-my-zsh/) and/or [`fx`](https://github.com/antonmedv/fx/) in the `setup.env` file
+  - Optionally enable [`oh-my-zsh`](https://github.com/robbyrussell/oh-my-zsh/) and/or [`fx`](https://github.com/antonmedv/fx/)
   - If enabled, container will start with a `zsh` shell instead of a `bash` shell
 
 - Bring a persistent container up:
