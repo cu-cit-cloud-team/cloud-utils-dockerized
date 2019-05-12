@@ -14,8 +14,6 @@ RUN apt-get clean && apt-get update && apt-get upgrade -qy \
 RUN pip install --upgrade pip
 RUN pip install awscli aws-shell aws-sam-cli awscli-login pyjq boto3 botocore wheel
 
-COPY ["./setup-awscli-login", "/usr/local/bin/setup-awscli-login"]
-
 # clean up after ourselves;
 RUN apt-get remove -qy --purge software-properties-common \
     && apt-get autoclean -qy \
