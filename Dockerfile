@@ -14,6 +14,10 @@ RUN apt-get clean && apt-get update && apt-get upgrade -qy \
 RUN pip install --upgrade pip
 RUN pip install awscli aws-shell aws-sam-cli awscli-login boto3 botocore wheel
 
+# install aws systems manager session manager plugin
+RUN curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb" \
+    && dpkg -i session-manager-plugin.deb
+
 COPY [ "./setup-awscli-login", "/usr/local/bin/setup-awscli-login" ]
 
 # clean up after ourselves;
