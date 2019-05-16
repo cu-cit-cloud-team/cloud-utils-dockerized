@@ -32,9 +32,9 @@ fi
 if [ "${SETUP_FX}" == true ]
 then
   echo "[START] fx/nodejs/npm installation"
-  curl -sL https://deb.nodesource.com/setup_11.x | bash - &>/dev/null
-  apt-get install -qy nodejs &>/dev/null
-  npm i -g fx &>/dev/null
+  curl -sL https://deb.nodesource.com/setup_11.x | bash - &> /dev/null
+  apt-get install -qy nodejs &> /dev/null
+  npm i -g fx &> /dev/null
   echo "[FINISH] fx/nodejs/npm installation successful"
 else
   echo "[INFO] skipping fx/nodejs/npm installation"
@@ -44,14 +44,14 @@ fi
 if [ "${SETUP_OHMYZSH}" == true ]
 then
   echo "[START] oh-my-zsh setup/configuration"
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh -l//g' | sed 's/chsh -s .*$//g')" >/dev/null
-  chsh -s /usr/bin/zsh >/dev/null
-  git clone --quiet https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions > /dev/null 2>&1
-  git clone --quiet https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions > /dev/null 2>&1
-  sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="refined"/g' ~/.zshrc >/dev/null
-  sed -i 's/# HYPHEN_INSENSITIVE=/HYPHEN_INSENSITIVE=/g' ~/.zshrc >/dev/null
-  sed -i 's/plugins=(git)/plugins=(git aws zsh-completions zsh-autosuggestions)/g' ~/.zshrc >/dev/null
-  sed -i '/plugins=(git)/a autoload -U compinit && compinit' ~/.zshrc >/dev/null
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh -l//g' | sed 's/chsh -s .*$//g')" &> /dev/null
+  chsh -s /usr/bin/zsh &> /dev/null
+  git clone --quiet https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions  &> /dev/null
+  git clone --quiet https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions  &> /dev/null
+  sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="refined"/g' ~/.zshrc &> /dev/null
+  sed -i 's/# HYPHEN_INSENSITIVE=/HYPHEN_INSENSITIVE=/g' ~/.zshrc &> /dev/null
+  sed -i 's/plugins=(git)/plugins=(git aws zsh-completions zsh-autosuggestions)/g' ~/.zshrc &> /dev/null
+  sed -i '/plugins=(git)/a autoload -U compinit && compinit' ~/.zshrc &> /dev/null
   echo "[FINISH] oh-my-zsh setup/configuration successful"
   zsh
 else
