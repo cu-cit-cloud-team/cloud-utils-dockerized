@@ -105,8 +105,8 @@ This will set some environment variables and if you haven't already set up `awsc
   ```bash
     docker run --rm -it \
       -e SETUP_AWSCLI_LOGIN=true \
-      -e DUO_FACTOR="push" \
-      -e NETID="abc123" \
+      -e DUO_FACTOR="auto" \
+      -e NETID="" \
       -e SETUP_OHMYZSH=true \
       -e SETUP_FX=false \
       -v $HOME/.aws:/root/.aws \
@@ -121,8 +121,8 @@ This will set some environment variables and if you haven't already set up `awsc
   ```bash
     alias awscli-utils="docker run --rm -it \
       -e SETUP_AWSCLI_LOGIN=true \
-      -e DUO_FACTOR="push" \
-      -e NETID="abc123" \
+      -e DUO_FACTOR="auto" \
+      -e NETID="" \
       -e SETUP_OHMYZSH=true \
       -e SETUP_FX=false \
       -v $HOME/.aws:/root/.aws \
