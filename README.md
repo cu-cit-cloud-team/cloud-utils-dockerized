@@ -14,6 +14,7 @@ This is a base Python 3.7 image that runs updates, sets timezone to Eastern,
 and installs the following:
 
 - [aws-cli](https://aws.amazon.com/cli/)
+- [session-manager-plugin](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html)
 - [aws-shell](https://github.com/awslabs/aws-shell)
 - [awscli-login](https://github.com/techservicesillinois/awscli-login)
 - [jq](https://stedolan.github.io/jq/)
