@@ -24,7 +24,7 @@ RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | \
 # upgrade pip;
 # install awscli, aws-shell, aws-sam-cli, awscli-login, boto3, botocore, wheel;
 RUN pip install --upgrade pip
-RUN pip install awscli aws-shell aws-sam-cli awscli-login boto3 botocore wheel
+RUN pip install awscli aws-shell aws-sam-cli awscli-login boto3 botocore wheel urllib3==1.24.3
 
 # install aws systems manager session manager plugin
 RUN curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb" \
