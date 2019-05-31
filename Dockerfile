@@ -33,6 +33,8 @@ RUN apt-get remove -qy --purge software-properties-common \
     && apt-get autoclean -qy \
     && apt-get autoremove -qy --purge \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && rm /session-manager-plugin.deb \
+    && rm -rf /usr/lib/node_modules
 
 CMD [ "setup-awscli-login" ]
