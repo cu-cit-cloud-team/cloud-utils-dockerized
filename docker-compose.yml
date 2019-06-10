@@ -1,8 +1,8 @@
 version: "3"
 services:
   awscli-utils:
-    image: mikesprague/awscli-utils:latest
-    container_name: awscli-utils
+    image: mikesprague/cloud-utils:latest
+    container_name: cloud-utils
     environment:
       # configures awscli-login for Cornell use
       # (if false, all tools are still available - awscli-login simply not auto-configured)
