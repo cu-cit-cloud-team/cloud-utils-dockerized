@@ -20,10 +20,6 @@ services:
       # installs fx json viewer, nodejs, and npm
       # fx is a powerful jq alternative - https://github.com/antonmedv/fx/
       - SETUP_FX=false
-      # installs terraform and enables terraform autocomplete from cli
-      # pins terraform version to number specified or grabs latest if none
-      - SETUP_TERRAFORM=true
-      - TERRAFORM_VERSION=0.11.13
     networks:
       - default
     stdin_open: true
