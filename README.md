@@ -1,22 +1,24 @@
-# ct-awscli-utils-dockerized
+# ct-cloud-utils-dockerized
 
-Various AWS utils (AWS CLI, aws-shell, awscli-login) in one Docker container.
+Various cloud utils (AWS CLI, aws-shell, awscli-login, Azure CLI, Terraform) in one Docker container.
 
 ## About
 
 - Available via Docker Hub (nothing sensitive in the container and makes pulling image and getting started more straight forward)
-  - Name: [mikesprague/awscli-utils](https://hub.docker.com/r/mikesprague/awscli-utils)
-  - URL: [https://hub.docker.com/r/mikesprague/awscli-utils](https://hub.docker.com/r/mikesprague/awscli-utils)
+  - Name: [mikesprague/cloud-utils](https://hub.docker.com/r/mikesprague/cloud-utils)
+  - URL: [https://hub.docker.com/r/mikesprague/cloud-utils](https://hub.docker.com/r/mikesprague/cloud-utils)
 
 ### What's Included
 
-This is a base Python 3.7 image that runs updates, sets timezone to Eastern,
+This is a base Python 3.7 base image that runs updates, sets timezone to Eastern,
 and installs the following:
 
 - [aws-cli](https://aws.amazon.com/cli/)
 - [session-manager-plugin](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html)
 - [aws-shell](https://github.com/awslabs/aws-shell)
 - [awscli-login](https://github.com/techservicesillinois/awscli-login)
+- [azure cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
+- [terraform](https://www.terraform.io/)
 - [jq](https://stedolan.github.io/jq/)
 - [boto3](https://github.com/boto/boto3)
 - [botocore](https://github.com/boto/botocore)
@@ -34,11 +36,11 @@ and installs the following:
 
 ## How to Use
 
-- Pull this repository down and go into the directory:
+- Clone this repository down and go into the directory:
 
   ```bash
-    git pull https://github.com/CU-CommunityApps/ct-awscli-utils-dockerized.git
-    cd ct-awscli-utils-dockerized
+    git clone https://github.com/CU-CommunityApps/ct-cloud-utils-dockerized.git
+    cd ct-cloud-utils-dockerized
   ```
 
 - _**Note:** If you have an existing folder with files you want to use this with, copy the `docker-compose.yml` file to your folder and then proceed_
@@ -61,16 +63,16 @@ This will set some environment variables and if you haven't already set up `awsc
 - Attach to a shell:
 
   ```bash
-  docker-compose exec awscli-utils setup-awscli-login
+  docker-compose exec awscli-utils configure-cloud-utils
   ```
 
 - _**Note:** Last 2 steps can be called together:_
 
   ```bash
-    docker-compose up --detach && docker-compose exec awscli-utils setup-awscli-login
+    docker-compose up --detach && docker-compose exec awscli-utils configure-cloud-utils
   ```
 
-- You should now be able to run any `aws` commands (including `aws login`) or the `aws-shell`
+- You should now be able to run commands from any of the installed utilities (including `aws`, `aws login`, `aws-shell`, `azure`, and `terraform`)
 
 - _**Note:** The container will remain running unless you manually stop it (this is useful if you want to return to a session with your prior setup, bash history, etc.) - reaatch to it with the following command:_
 
@@ -93,7 +95,7 @@ This will set some environment variables and if you haven't already set up `awsc
 - Alternative command to bring up a container that removes itself on exit:
 
   ```bash
-    docker-compose run --rm awscli-utils setup-awscli-login
+    docker-compose run --rm awscli-utils configure-cloud-utils
   ```
 
 #### Using without docker-compose
@@ -113,13 +115,13 @@ This will set some environment variables and if you haven't already set up `awsc
       -v $HOME/.aws-login:/root/.aws-login \
       -v $PWD:/mounted-home \
       -w /mounted-home \
-      mikesprague/awscli-utils
+      mikesprague/cloud-utils
   ```
 
 - You can also alias the same command in your bash/zsh profile (bash via `~/.profile` or `~/.bashrc` or Zsh via `~/.zshrc`) to simplify reuse:
 
   ```bash
-    alias awscli-utils="docker run --rm -it \
+    alias cloud-utils="docker run --rm -it \
       -e SETUP_AWSCLI_LOGIN=true \
       -e DUO_FACTOR="auto" \
       -e NETID="" \
@@ -129,7 +131,7 @@ This will set some environment variables and if you haven't already set up `awsc
       -v $HOME/.aws-login:/root/.aws-login \
       -v $PWD:/mounted-home \
       -w /mounted-home \
-      mikesprague/awscli-utils"
+      mikesprague/cloud-utils"
   ```
 
-- :point_up: The above snippet will make the command `awscli-utils` available in your shell and start the container in whatever directory you run the `awscli-utils` command
+- :point_up: The above snippet will make the command `cloud-utils` available in your shell and start the container in whatever directory you run the `cloud-utils` command
