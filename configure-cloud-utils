@@ -60,16 +60,3 @@ else
   echo "[INFO] skipping oh-my-zsh setup/configuration"
   /bin/bash
 fi
-
-# install terraform and enable terraform autocomplete
-if [ "${SETUP_TERRAFORM}" == true ]
-then
-  echo "[START] terraform and terraform autocomplete configuration"
-  wget "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_darwin_amd64.zip"
-  unzip "./terraform_${TERRAFORM_VERSION}_darwin_amd64.zip"
-  mv ./terraform /usr/local/bin/terraform
-  terraform -install-autocomplete
-  echo "[FINISH] terraform and terraform configuration successful"
-else
-  echo "[INFO] skipping terraform and terraform configuration"
-fi

@@ -17,6 +17,10 @@ RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor |
     && apt-get update \
     && apt-get install -qy azure-cli
 
+RUN wget https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip \
+    && unzip ./terraform_0.11.13_linux_amd64.zip \
+    && mv ./terraform /usr/bin
+
 # upgrade pip;
 # install awscli, aws-shell, aws-sam-cli, awscli-login, boto3, botocore, wheel, urllib;
 RUN pip install --upgrade pip
@@ -37,4 +41,4 @@ RUN apt-get remove -qy --purge software-properties-common \
     && rm /session-manager-plugin.deb \
     && rm -rf /usr/lib/node_modules
 
-CMD [ "configure-cloud-utils" ]
+CMD [ "/bin/zsh" ]
