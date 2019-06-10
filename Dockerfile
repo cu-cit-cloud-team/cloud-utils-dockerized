@@ -26,7 +26,7 @@ RUN pip install awscli aws-shell aws-sam-cli awscli-login boto3 botocore wheel u
 RUN curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb" \
     && dpkg -i session-manager-plugin.deb
 
-COPY [ "./setup-awscli-login", "/usr/local/bin/setup-awscli-login" ]
+COPY [ "./configure-cloud-utils", "/usr/local/bin/configure-cloud-utils" ]
 
 # clean up after ourselves;
 RUN apt-get remove -qy --purge software-properties-common \
@@ -37,4 +37,4 @@ RUN apt-get remove -qy --purge software-properties-common \
     && rm /session-manager-plugin.deb \
     && rm -rf /usr/lib/node_modules
 
-CMD [ "setup-awscli-login" ]
+CMD [ "configure-cloud-utils" ]
