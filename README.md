@@ -63,13 +63,13 @@ This will set some environment variables and if you haven't already set up `awsc
 - Attach to a shell:
 
   ```bash
-  docker-compose exec awscli-utils configure-cloud-utils
+  docker-compose exec cloud-utils configure-cloud-utils
   ```
 
 - _**Note:** Last 2 steps can be called together:_
 
   ```bash
-    docker-compose up --detach && docker-compose exec awscli-utils configure-cloud-utils
+    docker-compose up --detach && docker-compose exec cloud-utils configure-cloud-utils
   ```
 
 - You should now be able to run commands from any of the installed utilities (including `aws`, `aws login`, `aws-shell`, `azure`, and `terraform`)
@@ -77,7 +77,7 @@ This will set some environment variables and if you haven't already set up `awsc
 - _**Note:** The container will remain running unless you manually stop it (this is useful if you want to return to a session with your prior setup, bash history, etc.) - reaatch to it with the following command:_
 
   ```bash
-    docker-compose exec awscli-utils bash
+    docker-compose exec cloud-utils bash
   ```
 
 - Stopping the container (after exiting it):
@@ -95,7 +95,7 @@ This will set some environment variables and if you haven't already set up `awsc
 - Alternative command to bring up a container that removes itself on exit:
 
   ```bash
-    docker-compose run --rm awscli-utils configure-cloud-utils
+    docker-compose run --rm cloud-utils configure-cloud-utils
   ```
 
 #### Using without docker-compose
