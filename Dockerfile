@@ -3,11 +3,13 @@ FROM python:3.7
 # run some updates;
 # install a few common packages plus jq, zsh, and vim;
 # set the timezone to eastern;
-RUN apt-get clean && apt-get update && apt-get upgrade -qy \
-    && apt-get install -qy locales tzdata apt-utils apt-transport-https lsb-release gnupg software-properties-common build-essential vim jq zsh groff \
+RUN apt-get clean && apt-get update \
+    && apt-get install --no-install-recommends -qy locales tzdata apt-utils apt-transport-https lsb-release gnupg software-properties-common build-essential vim jq zsh groff \
     && locale-gen en_US.UTF-8 \
     && ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime \
-    && dpkg-reconfigure -f noninteractive tzdata
+    && dpkg-reconfigure -f noninteractive tzdata \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /.cache/*
 
 ## install azure-cli
 RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null \
@@ -15,20 +17,25 @@ RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor |
     && AZ_REPO=$(lsb_release -cs) \
     && echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | tee /etc/apt/sources.list.d/azure-cli.list \
     && apt-get update \
-    && apt-get install -qy azure-cli
+    && apt-get install --no-install-recommends -qy azure-cli \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /.cache/*
 
 RUN wget https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip \
     && unzip ./terraform_0.11.13_linux_amd64.zip \
-    && mv ./terraform /usr/bin
+    && mv ./terraform /usr/bin \
+    && rm ./terraform_0.11.13_linux_amd64.zip
 
 # upgrade pip;
 # install awscli, aws-shell, aws-sam-cli, awscli-login, boto3, botocore, wheel, urllib;
 RUN pip install --upgrade pip
-RUN pip install awscli aws-shell aws-sam-cli awscli-login boto3 botocore wheel urllib3==1.24.3
+RUN pip install --no-cache-dir awscli aws-shell aws-sam-cli awscli-login boto3 botocore wheel urllib3==1.24.3
 
 # install aws systems manager session manager plugin
 RUN curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb" \
-    && dpkg -i session-manager-plugin.deb
+    && dpkg -i session-manager-plugin.deb \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /.cache/*
 
 COPY [ "./configure-cloud-utils", "/usr/local/bin/configure-cloud-utils" ]
 
@@ -37,7 +44,7 @@ RUN apt-get remove -qy --purge software-properties-common \
     && apt-get autoclean -qy \
     && apt-get autoremove -qy --purge \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /.cache/* \
     && rm /session-manager-plugin.deb \
     && rm -rf /usr/lib/node_modules
 
