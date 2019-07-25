@@ -13,8 +13,8 @@ RUN apt-get clean && apt-get update \
 
 ## install azure-cli
 RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null \
-    && curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null \
-    && AZ_REPO=$(lsb_release -cs) \
+    # && AZ_REPO=$(lsb_release -cs) \
+    && AZ_REPO="bionic" \
     && echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | tee /etc/apt/sources.list.d/azure-cli.list \
     && apt-get update \
     && apt-get install --no-install-recommends -qy azure-cli \
