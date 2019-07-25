@@ -21,10 +21,11 @@ RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor |
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /.cache/*
 
-RUN wget https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip \
-    && unzip ./terraform_0.11.13_linux_amd64.zip \
+RUN TERRAFORM_VERSION=0.11.13 \
+    && wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
+    && unzip ./terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
     && mv ./terraform /usr/bin \
-    && rm ./terraform_0.11.13_linux_amd64.zip
+    && rm ./terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 
 # upgrade pip;
 # install awscli, aws-shell, aws-sam-cli, awscli-login, boto3, botocore, wheel, urllib;
