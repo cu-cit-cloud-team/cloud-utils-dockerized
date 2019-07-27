@@ -1,10 +1,9 @@
-FROM python:3.7
-
-# run some updates;
-# install a few common packages plus jq, zsh, and vim;
-# set the timezone to eastern;
+FROM python:3.7.4-slim-stretch
+# run some updates
+# install some common packages plus jq, zsh, and vim
+# set the timezone to eastern
 RUN apt-get clean && apt-get update \
-    && apt-get install --no-install-recommends -qy locales tzdata ca-certificates apt-utils apt-transport-https lsb-release gnupg software-properties-common build-essential vim jq zsh groff \
+    && apt-get install --no-install-recommends -qy locales tzdata apt-utils apt-transport-https lsb-release gnupg software-properties-common build-essential vim jq zsh groff curl wget zip unzip \
     && locale-gen en_US.UTF-8 \
     && ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime \
     && dpkg-reconfigure -f noninteractive tzdata \
