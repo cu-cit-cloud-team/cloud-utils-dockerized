@@ -1,4 +1,4 @@
-FROM python:3.7.4-slim-stretch
+FROM python:3.7.5-slim-stretch
 # run some updates
 # install some common packages plus jq, zsh, and vim
 # set the timezone to eastern
