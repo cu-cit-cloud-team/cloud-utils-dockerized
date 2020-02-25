@@ -13,7 +13,7 @@ RUN apt-get clean && apt-get update \
 # upgrade pip
 # install awscli, aws-shell, awscli-login, boto3, botocore, wheel, urllib
 RUN pip install --upgrade pip \
-    && pip install --no-cache-dir awscli aws-shell awscli-login boto3 botocore wheel urllib3==1.24.3
+    && pip install --no-cache-dir awscli aws-shell awscli-login boto3 botocore wheel urllib3
 
 ## install azure-cli, aws systems manager session manager plugin, and terraform
 RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null \
