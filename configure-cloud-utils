@@ -53,7 +53,9 @@ then
   sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="refined"/g' ~/.zshrc &> /dev/null
   sed -i 's/# HYPHEN_INSENSITIVE=/HYPHEN_INSENSITIVE=/g' ~/.zshrc &> /dev/null
   sed -i 's/plugins=(git)/plugins=(git aws terraform zsh-completions zsh-autosuggestions)/g' ~/.zshrc &> /dev/null
-  sed -i '/plugins=(git)/a autoload -U compinit && compinit' ~/.zshrc &> /dev/null
+  sed -i '/plugins=(git aws terraform zsh-completions zsh-autosuggestions)/a autoload -U compinit && compinit' ~/.zshrc &> /dev/null
+  echo -e "\nsource /etc/bash_completion.d/azure-cli\n" >> ~/.zshrc
+
   echo "[FINISH] oh-my-zsh setup/configuration successful"
   /bin/zsh
 else
