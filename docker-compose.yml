@@ -17,9 +17,9 @@ services:
       # installs zsh, oh-my-zsh, and enables plugins (aws, git, zsh-suggestions, zsh-completions)
       # starts your session in a zsh terminal versus bash
       - SETUP_OHMYZSH=false
-      # installs fx json viewer, nodejs, and npm
+      # installs nodejs and npm (also installs fx json viewer)
       # fx is a powerful jq alternative - https://github.com/antonmedv/fx/
-      - SETUP_FX=false
+      - SETUP_NODEJS=false
     networks:
       - default
     stdin_open: true
