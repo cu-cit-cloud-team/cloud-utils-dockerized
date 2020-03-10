@@ -25,7 +25,8 @@ RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor |
     && curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb" \
     && dpkg -i session-manager-plugin.deb \
     # install terraform
-    && TERRAFORM_VERSION=0.12.23 \
+    # && TERRAFORM_VERSION=0.12.23 \
+    && TERRAFORM_VERSION=`curl -s https://api.github.com/repos/hashicorp/terraform/releases/latest | grep tag_name | cut -d: -f2 | tr -d \"\,\v | awk '{$1=$1};1'` \
     && wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
     && unzip ./terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
     && mv ./terraform /usr/bin \
