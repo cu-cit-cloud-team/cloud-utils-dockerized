@@ -1,4 +1,4 @@
-FROM python:3.8.5-slim-buster
+FROM python:3.9.1-slim-buster
 # run some updates
 # install some common packages plus jq, zsh, and vim
 # set the timezone to eastern
