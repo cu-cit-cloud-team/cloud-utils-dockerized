@@ -1,4 +1,4 @@
-FROM python:3.9.2-slim-buster
+FROM python:3.9.4-slim-buster
 # run some updates
 # install some common packages plus jq, zsh, and vim
 # set the timezone to eastern
@@ -13,7 +13,7 @@ RUN apt-get clean && apt-get update \
 # upgrade pip
 # install awscli, aws-shell, awscli-login, boto3, botocore, wheel, urllib
 RUN pip install --upgrade pip \
-    && pip install --no-cache-dir awscli aws-shell boto3 botocore wheel urllib3 https://github.com/CU-CommunityApps/awscli-login/tarball/master#egg=awscli-login
+    && pip install --no-cache-dir awscli aws-shell boto3 botocore wheel urllib3 awscli-login
 
 ## install azure-cli, aws systems manager session manager plugin, and terraform
 RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null \
