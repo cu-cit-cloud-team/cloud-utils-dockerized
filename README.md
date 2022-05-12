@@ -1,3 +1,5 @@
+# _NOTE: This repo is no longer maintained (archived/read-only)_
+
 # ct-cloud-utils-dockerized
 
 Various cloud utils (AWS CLI, aws-shell, awscli-login, Azure CLI, Terraform) in one Docker container.
